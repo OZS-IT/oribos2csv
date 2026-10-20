@@ -2,6 +2,8 @@
 
 A single-file PHP page that converts result exports from ORIBOS (IOF XML 3.0) into the CSV formats used by the OZS portal. Drop an XML file on the page and the CSV downloads right away. The same URL also works as an endpoint for scripts.
 
+Working instance: <https://www.cerkno-cup.com/oribos2csv/>
+
 ## Formats
 
 | Mode | First line | Output | Based on |
@@ -17,12 +19,12 @@ Both converters are rewritten in plain PHP, so the server needs neither Python n
 
 ## Installation
 
-1. Upload `index.php` into a folder (for example `oribos2csv/`) on any web server with PHP.
+1. Upload `index.php` and `.htaccess` into a folder (for example `oribos2csv/`) on any web server with PHP.
 2. Open `https://your-server/oribos2csv/` in a browser.
 
 Requirements:
 
-- PHP 7.4 or newer with the DOM extension, which is enabled on practically every host.
+- PHP 7.4 or newer with the DOM extension, which is enabled on practically every host. The included `.htaccess` selects PHP 8.3 on LiteSpeed hosts such as hitrost.com, where the account default is PHP 5.x and the page would otherwise return HTTP 500. On other hosts, set the PHP version in the hosting panel and remove the `SetHandler` block if it causes problems.
 - An upload limit large enough for your files. The script accepts up to 25 MB (`MAX_UPLOAD_BYTES` at the top of the file), but many hosts allow only 2 MB by default. If larger files fail, raise `upload_max_filesize` and `post_max_size` in `php.ini` or `.htaccess`.
 
 Files are converted in memory and never stored on the server.
