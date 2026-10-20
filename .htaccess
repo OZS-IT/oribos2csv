@@ -1,0 +1,17 @@
+# oribos2csv — Apache config for shared hosting (hitrost.com / LiteSpeed).
+
+# PHP 8.3. The account default is PHP 5.x, on which index.php (needs 7.4+)
+# does not even parse — without this block every request is an HTTP 500.
+# Handler name per https://podpora.hitrost.com/p/kako-izberem-php-verzijo-s-htaccess-datoteko/
+<FilesMatch "\.(inc|php5|php4|php3|php2|php|phtml)$">
+    SetHandler application/x-lsphp83
+</FilesMatch>
+
+Options -Indexes
+DirectoryIndex index.php
+
+# Never serve repo files.
+<FilesMatch "^(README\.md|\.git.*)$">
+    Require all denied
+</FilesMatch>
+RedirectMatch 404 /\.git
